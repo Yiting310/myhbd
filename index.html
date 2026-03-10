@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>給媽媽的母難日卡片</title>
+    <style>
+        :root {
+            --pink-bg: #fff5f7;
+            --pink-accent: #ffafbd;
+            --text-dark: #6d4c41;
+            --carnation: #e91e63;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: "Microsoft JhengHei", sans-serif;
+            background-color: var(--pink-bg);
+            overflow: hidden; /* 防止在封面還沒打開時捲動 */
+        }
+
+        /* 封面層 - 設定為滿版 */
+        #cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #ffafbd 0%, #ffc3a0 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+            color: white;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* 當封面被點擊後，向上移動消失（營造內容往下拉出的視覺感） */
+        .opened #cover {
+            transform: translateY(-100%);
+        }
+
+        .cover-content h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hint-arrow {
+            margin-top: 30px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* 內容層 */
+        #content {
+            height: 100vh;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: var(--pink-bg);
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        .opened #content {
+            opacity: 1;
+        }
+
+        .photo-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 照片框 - 拍立得風格，高度自動 */
+        .photo-frame {
+            width: 100%;
+            background: white;
+            padding: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: auto; /* 確保照片不被裁切 */
+            display: block;
+            border-radius: 2px;
+        }
+
+        .deco-icon {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--carnation);
+        }
+
+        /* 文字輸入區 */
+        .message-box {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border: 2px solid var(--pink-accent);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px auto 80px auto;
+            color: var(--text-dark);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+            min-height: 150px;
+        }
+
+        h2.title {
+            color: var(--carnation);
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body id="mainBody">
+
+    <div id="cover" onclick="handleOpen()">
+        <div class="cover-content">
+            <div style="font-size: 80px; margin-bottom: 20px;">🌸</div>
+            <h1>給最親愛的媽媽</h1>
+            <p style="font-size: 1.2rem;">今天是我的生日，也是您的母難日</p>
+            <div class="hint-arrow">
+                <p>點擊開啟</p>
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+        <h2 class="title">致 辛苦的媽媽</h2>
+        <p style="text-align: center; color: #999; margin-bottom: 30px;">( 往下滑動看更多照片 )</p>
+        
+        <div class="photo-container">
+            <div class="photo-frame"><img src="1.jpg" alt="照片 1"></div>
+            <div class="deco-icon">✿</div>
+            <div class="photo-frame"><img src="2.jpg" alt="照片 2"></div>
+            <div class="deco-icon">✿</div>
+            <div class="photo-frame"><img src="3.jpg" alt="照片 3"></div>
+            <div class="deco-icon">✿</div>
+            <div class="photo-frame"><img src="4.jpg" alt="照片 4"></div>
+            <div class="deco-icon">✿</div>
+            <div class="photo-frame"><img src="5.jpg" alt="照片 5"></div>
+        </div>
+
+        <div class="message-box" contenteditable="true">
+            最愛的媽媽<br><br>
+            感謝妳在22年前生下我 長大後才知道生小孩有多不容易<br>
+            這一路妳都撐過來了 辛苦了我的媽<br>
+            希望妳現在能夠開心、快樂的過每一天!!
+            每個時期的妳都是最美麗最漂亮的<br>
+            我最愛妳了喔!等我回去一起去吃好吃的!
+        </div>
+    </div>
+
+    <script>
+        function handleOpen() {
+            // 為 body 加上 'opened' class，觸發 CSS 動畫
+            document.getElementById('mainBody').classList.add('opened');
+            // 允許內頁捲動
+            document.body.style.overflow = 'auto';
+            document.documentElement.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
